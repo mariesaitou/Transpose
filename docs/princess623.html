@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Marie Saitou" />
+
+
+<title>Princess</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Bio326</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/mariesaitou/Transpose">
+    <span class="fas fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Princess</h1>
+<h4 class="author">Marie Saitou</h4>
+<h4 class="date">4/27/2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-06-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>Transpose/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210623code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210623)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210623code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210623)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcommariesaitouTransposetree268ecb456ed4c3355aa938a892d649744ea8729ftargetblank268ecb4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/mariesaitou/Transpose/tree/268ecb456ed4c3355aa938a892d649744ea8729f" target="_blank">268ecb4</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcommariesaitouTransposetree268ecb456ed4c3355aa938a892d649744ea8729ftargetblank268ecb4a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/mariesaitou/Transpose/tree/268ecb456ed4c3355aa938a892d649744ea8729f" target="_blank">268ecb4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/princess.Rmd
+    Untracked:  analysis/princess623.docx
+    Untracked:  assets/
+    Untracked:  workflowR.transpose.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/princess623.Rmd</code>) and HTML (<code>docs/princess623.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/mariesaitou/Transpose/blob/268ecb456ed4c3355aa938a892d649744ea8729f/analysis/princess623.Rmd" target="_blank">268ecb4</a>
+</td>
+<td>
+mariesaitou
+</td>
+<td>
+2021-06-23
+</td>
+<td>
+Add my first analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="goal" class="section level1">
+<h1>Goal</h1>
+<ol style="list-style-type: decimal">
+<li>Incorporate SVs from Sniffles and other software.</li>
+<li>Gain a VCF file with phased SVs and SNPs from multiple individuals.</li>
+</ol>
+<p>like this <img src="assets/vcfgoal.png" alt="example from 1000GP" /></p>
+<p>PRINCESS Results:</p>
+<p>Phased BAM Files</p>
+<pre class="bash"><code>/mnt/SCRATCH/princesstest/result420/LLsal/result/minimap.hap.bam
+/mnt/SCRATCH/princesstest/result420/Barry/result/minimap.hap.bam
+/mnt/SCRATCH/princesstest/result420/tanner/result/minimap.hap.bam
+/mnt/SCRATCH/princesstest/result420/Bond/result/minimap.hap.bam
+/mnt/SCRATCH/princesstest/result420/Klopp/result/minimap.hap.bam
+/mnt/SCRATCH/princesstest/result420/Brian/result/minimap.hap.bam
+</code></pre>
+<p>Phased SV VCF Files (Not all variants are phased)</p>
+<pre class="bash"><code>/mnt/SCRATCH/princesstest/result420/LLsal/result/minimap.SVs.phased.vcf
+/mnt/SCRATCH/princesstest/result420/Barry/result/minimap.SVs.phased.vcf
+/mnt/SCRATCH/princesstest/result420/tanner/result/minimap.SVs.phased.vcf
+/mnt/SCRATCH/princesstest/result420/Bond/result/minimap.SVs.phased.vcf
+/mnt/SCRATCH/princesstest/result420/Klopp/result/minimap.SVs.phased.vcf
+/mnt/SCRATCH/princesstest/result420/Brian/result/minimap.SVs.phased.vcf</code></pre>
+<p>Phased SNP VCF Files (Not all variants are phased)</p>
+<pre class="bash"><code>/mnt/SCRATCH/princesstest/result420/LLsal/result/minimap.phased.SNVs.vcf.gz
+/mnt/SCRATCH/princesstest/result420/Barry/result/minimap.phased.SNVs.vcf.gz
+/mnt/SCRATCH/princesstest/result420/tanner/result/minimap.phased.SNVs.vcf.gz
+/mnt/SCRATCH/princesstest/result420/Bond/result/minimap.phased.SNVs.vcf.gz
+/mnt/SCRATCH/princesstest/result420/Klopp/result/minimap.phased.SNVs.vcf.gz
+/mnt/SCRATCH/princesstest/result420/Brian/result/minimap.phased.SNVs.vcf.gz</code></pre>
+</div>
+<div id="to-do" class="section level1">
+<h1>To Do</h1>
+<pre class="bash"><code>
+(1) Incorporate SVs from Sniffles and other software.
+
+
+What we have:
+(1-1) Original BAM file/BAM files from Princess
+
+(1-2) SV/SNV vcf files from Prinvess
+
+(1-3) bed file of the SVs.
+
+
+CHR START   END SVLEN   SUPP    Alto    Arnold  Barry   Klopp   Simon   Tanner  Tess
+ssa01   188519  207789  19270   1   0   0   1   0   0   0   0
+ssa01   199989  321264  121275  2   1   0   1   0   0   0   0
+ssa01   200189  321264  121075  3   0   1   1   0   1   0   0
+ssa01   205970  317246  111276  3   1   1   0   0   1   0   0
+ssa01   283115  363277  80162   2   1   0   0   0   0   1   0
+ssa01   285368  353148  67780   5   1   1   1   0   0   1   1
+
+
+And VCF files of the SVs (from Jasmine)
+
+#CHROM  POS ID  REF ALT QUAL    FILTER  INFO    FORMAT  0_../klopp_s.bam    1_Sample    2_klopp_
+s
+ssa01   100054015   0_4282  AGAGTCAACATGATGAGGACCACAGTACAGAGTCAATATGACAATATGATGAGGACCACTATACAGAGTGAATATGACAATATGATGA
+GGACCACTGTACAGAGTCAATAAGATGAGGACCACTGTAGAGTCAATGTGACAACATTATGAGGACCACTGTACAGAGTCAATATGACAATATGAGGACCACAGTACAGAGTCAATAAGA
+TGAGGACCACAGTAAAGAGTCAATATGACAACATTATGAGGACCACTGTACAGAGTCAATATGACAATATGAGGACCACAGTACAGAGTCAATATGACAATATGAGGACCACAGTACAGA
+GTCAATATGACAATATGAGGACCACAGTACAGAGTCAATATGACAATATGAGGACCACAGTACAGAGCCAATAAGACAATATGACGAGGTCCACTGTACAGAGTGAATATGACGAGGTCC
+ACTGTACAGAGCCAATATGACAACATGATGAGGACCACTGTAGAGTCAATGTGATGAGGACCACGGTACAGAGTCAATGTGATGAGGACCATGGTACAGAGTCAATGTGACA    
+A   .   PASS    SVTYPE=DEL;RNAMES=0b92a48d-c9e3-48f1-ab80-1ee281b3199a,3196e50d-8561-495f-af07-fa0142379030,4215
+8657-4027-4f2c-a958-e3008a29f39f,5eb21035-5e3c-4f6f-bd71-92ef6100eb9b,8f974518-2c29-413e-b019-7b89ea4d85cf,9417c2f7-0e69
+-4343-8c91-0e1e34b1388a,d80c3a2b-5ac3-4175-8a70-ab6df970fb87,ea1c6027-7b5a-4069-9870-0e2713def3c7,ef6c12ca-225d-43e2-936
+5-32e4f9db1ab0;END=100054574;SVLEN=-559;RE=9;IRIS_PROCESSED=1;IRIS_REFINED=0;STARTVARIANCE=0.000000;ENDVARIANCE=0.000000
+;AVG_LEN=-559.000000;AVG_START=100054015.500000;AVG_END=100054574.500000;SUPP_VEC_EXT=110;IDLIST_EXT=4282,svim.DEL.42982
+;SUPP_EXT=2;SUPP_VEC=110;SUPP=2;SVMETHOD=JASMINE;IDLIST=4282,svim.DEL.42982 GT:IS:OT:OS:DV:DR   0/1:.:DEL:.:9:8
+0/1:.:DEL:.:1:. ./.:NA:NA:NA:NA:NA
+ssa01   10009730    0_1054  T   TAGTCACGACAGTTGGTGAGTTACAGGGCAGCGATATGGAGTCCGATGAATGGTGAGGTTGCAGGCAGCATAT   
+.   PASS    SVTYPE=INS;RNAMES=0ebcc4ec-c2a1-4046-b55d-205e0d8024c3,15105fd5-697c-4ece-9913-160e223fd526,1ceab9a7-b86
+8-4329-ae45-105e3f25d7c1,1d684bf8-7084-4eb5-90d4-b4797ec743d2,32aac4c3-288e-4afe-834a-e2c34b6ecfb7,4a5e4dc6-346a-4213-99
+01-625f372edf05,52340e02-9e3f-4b91-8485-6afe83f9c8d9,5b61e2c3-5fee-4321-b656-d0b8b665a5b8,62c523a1-f072-4bba-8869-2ff9ee
+f3d008,648cc51d-012a-4138-81ee-b640f68adf41,6a6b72be-ed85-49d1-a90f-b4e2d6b12266,704d7cf3-fcac-4aef-b6bf-0124d058d32d,7e
+b3b599-7e0c-4cc3-a36f-72f264978737,96043eb3-4d75-494f-af5e-3fa1871a73b6,aed4613e-f713-4951-bb1a-cbbc55b61114,af835a14-a5
+ea-49b9-8436-89accab15cdf,bf0016f7-f138-409b-8aa6-f3ba706cee56,c0abb8ee-d06b-4e25-9c38-7364bfad7836,c812ae4d-db7d-4a73-a
+f28-0377e6524eac,c83dbd1a-4195-47a3-8098-b4f2eeed1178,c9a008ce-a840-4870-aec8-e91bb633c503,ce3d8d0e-0f04-43fb-8450-7a266
+610e0fb;END=10009730;SVLEN=72;RE=22;IRIS_PROCESSED=1;IRIS_REFINED=0;STARTVARIANCE=182.250000;ENDVARIANCE=182.250000;AVG_
+LEN=71.000000;AVG_START=10009716.500000;AVG_END=10009716.500000;SUPP_VEC_EXT=110;IDLIST_EXT=1054,svim.INS.14490;SUPP_EXT
+=2;SUPP_VEC=110;SUPP=2;SVMETHOD=JASMINE;IDLIST=1054,svim.INS.14490  GT:IS:OT:OS:DV:DR   1/1:.:INS:.:22:2    0/1:.:INS:.:22:.    -./.:NA:NA:NA:NA:NA
+
+
+(2) Gain a VCF file with phased SVs and SNPs from multiple individuals.
+
+- Current problems
+
+(2-1) ref/ref loci is not descrived in individual VCFs and turned into ./. rather than 0|0 in the merged multiple-sample VCF.
+(2-2) Survivor does not recognise BAM files from Princess.
+</code></pre>
+</div>
+<div id="for-internal-usage-protocol" class="section level1">
+<h1>For internal usage (protocol)</h1>
+<div id="methods-of-princess" class="section level3">
+<h3>Methods of Princess</h3>
+<p><a href="https://github.com/MeHelmy/princess" class="uri">https://github.com/MeHelmy/princess</a></p>
+<p>Mapping: NGMLR or Minimap2 SNVs: Clair (successor of Clairvoyante)</p>
+<p>SVs: Sniffles</p>
+<p>Phasing SNVs: WhatsHap</p>
+<p>Phasing SVs: PRINCESS-subtool</p>
+<p>Extend Phasing: PRINCESS-subtool</p>
+<p>Phased Methylation: Nanopolish + PRINCESS-subtool</p>
+<p>QC Statistics for each step</p>
+</div>
+<div id="the-authors-talk" class="section level3">
+<h3>The author’s talk</h3>
+<p><a href="https://www.youtube.com/watch?v=-mXnwYNx05o" class="uri">https://www.youtube.com/watch?v=-mXnwYNx05o</a> (mostly about its sensitivity for datasets from different platforms)</p>
+</div>
+<div id="work-directories" class="section level3">
+<h3>Work directories</h3>
+<pre class="bash"><code>
+/net/fs-1/Transpose/Software/princess
+/net/cn-1/mnt/SCRATCH/princesstest/result420
+</code></pre>
+</div>
+<div id="configuration-file-setting-for-orion" class="section level3">
+<h3>Configuration file setting for Orion</h3>
+<p>We need to configure three files when you install a new verison of Princess</p>
+<p>under /net/fs-1/Transpose/Software/princess/cluster</p>
+<p>key_mapping.yaml, comfig.yaml, cluster_config.yaml</p>
+<pre class="bash"><code>
+restart-times: 3
+cluster-config: &quot;cluster/cluster_config.yaml&quot; #abs path
+cluster: &quot;scheduler.py&quot; #
+cluster-status: &quot;slurm_status.py&quot; #
+max-jobs-per-second: 30
+max-status-checks-per-second: 10
+cores: 99 # how many jobs you want to submit to your cluster queue
+local-cores: 1
+rerun-incomplete: true  # recomended for cluster submissions
+keep-going: false
+</code></pre>
+<pre class="bash"><code># only parameters defined in key_mapping (see below) are passed to the command in the order specified.
+system: &quot;slurm&quot; #check if system is defined below
+</code></pre>
+<pre class="bash"><code>---
+__default__:
+    &quot;account&quot;   : &quot;nmbu&quot;
+#    &quot;queue&quot;     : &quot;ill-prod&quot;
+    &quot;queue&quot;     : &quot;orion&quot;
+    &quot;nCPUs&quot;     : &quot;16&quot;
+    &quot;mem&quot;    : 20000
+#    &quot;resources&quot; : &quot;\&quot;select[mem&gt;20000] rusage[mem=20000] span[hosts=1]\&quot;&quot;
+    &quot;name&quot;      : &quot;JOBNAME.{rule}.{wildcards}&quot;
+     &quot;output&quot;    : &quot;log/{rule}.PBS_JOBID.out&quot;
+     &quot;error&quot;     : &quot;log/{rule}.PBS_JOBID.err&quot;
+    &quot;time&quot;      : &quot;01:00:00:00&quot;
+</code></pre>
+</div>
+<div id="batch-script-for-princess" class="section level3">
+<h3>Batch script for Princess</h3>
+<pre class="bash"><code>#!/bin/bash
+#SBATCH --ntasks=50               # 1 core(CPU)
+#SBATCH --nodes=1               # Use 1 node
+#SBATCH --job-name=pri.max  # sensible name for the job
+#SBATCH --mem=50G                 # Default memory per CPU is 3GB.
+#SBATCH --partition=hugemem # Use the verysmallmem-partition for jobs requiring &lt; 10 GB RAM.
+#SBATCH --output=max.420.out.txt
+#SBATCH --constraint=avx2
+#SBATCH --mail-user=marie.saitou@nmbu.no # Email me when job is done.
+#SBATCH --mail-type=END
+
+module load PyYAML
+module load Miniconda3/4.7.10
+module load snakemake/5.30.1
+module load HTSlib
+
+
+python3.7  /net/fs-1/Transpose/Software/princess/princess all -d /net/cn-1/mnt/SCRATCH/princesstest/result420/max -r ont  -s /net/fs-1/Transpose/Rawdata/PromethION/prom-Ssal-max-20191002.guppy305.min4k.q7.h50.FINAL.fastq.gz -f /net/fs-1/Transpose/Software/fasta/Simon_Final2021_CHR_selected.fa --latency-wait 120 --rerun-incomplete --verbose -e &gt; max.420.log 2&gt;&amp;1 
+
+
+# Brian_pilon_CHR.fasta
+python3.7  /net/fs-1/Transpose/Software/princess/princess all -d /net/cn-1/mnt/SCRATCH/princesstest/result0504/max -r ont  -s /net/fs-1/Transpose/Rawdata/PromethION/prom-Ssal-max-20191002.guppy305.min4k.q7.h50.FINAL.fastq.gz -f /net/fs-1/Transpose/Software/fasta/Brian_pilon_CHR.fasta --latency-wait 120 --rerun-incomplete --verbose -e &gt; max.0504.log 2&gt;&amp;1 </code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS  10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] workflowr_1.6.2
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.6        whisker_0.4       knitr_1.31        magrittr_2.0.1   
+ [5] R6_2.5.0          rlang_0.4.10      fansi_0.4.2       stringr_1.4.0    
+ [9] tools_4.0.2       xfun_0.21         utf8_1.2.1        git2r_0.28.0     
+[13] htmltools_0.5.1.1 ellipsis_0.3.1    rprojroot_2.0.2   yaml_2.2.1       
+[17] digest_0.6.27     tibble_3.1.1      lifecycle_1.0.0   crayon_1.4.1     
+[21] later_1.2.0       vctrs_0.3.7       promises_1.2.0.1  fs_1.5.0         
+[25] glue_1.4.2        evaluate_0.14     rmarkdown_2.6     stringi_1.5.3    
+[29] compiler_4.0.2    pillar_1.6.0      httpuv_1.6.0      pkgconfig_2.0.3  </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
