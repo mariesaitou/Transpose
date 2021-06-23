@@ -53,14 +53,14 @@ Phased SNP VCF Files (Not all variants are phased)
 
 
 # To Do
-##(1) Incorporate SVs from Sniffles and other software.
+## (1) Incorporate SVs from Sniffles and other software.
 
-##What we have:
-###(1-1) Original BAM file/BAM files from Princess
+## What we have:
+### (1-1) Original BAM file/BAM files from Princess
 
-###(1-2) SV/SNV vcf files from Prinvess
+### (1-2) SV/SNV vcf files from Prinvess
 
-###(1-3) bed file of the SVs.
+### (1-3) bed file of the SVs.
 
 ```{bash,eval=FALSE}
 
@@ -74,7 +74,7 @@ ssa01	285368	353148	67780	5	1	1	1	0	0	1	1
 
 ```
 
-###VCF files of the SVs (from Jasmine)
+### VCF files of the SVs (from Jasmine)
 ```{bash,eval=FALSE}
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	0_../klopp_s.bam	1_Sample	2_klopp_
 s
